@@ -2,10 +2,9 @@
  * UserController
  *
  * @description :: Server-side logic for managing users
- * @help        :: See http://links.sailsjs.org/docs/controllers
+ * @help        :: https://github.com/josoroma/sails/issues
  */
 
 module.exports = {
-	
-};
 
+};
