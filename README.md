@@ -12,7 +12,7 @@ mkdir backend frontend
 touch README.md backend/README.md frontend/README.md
 ```
 
-## Develop a Sails Web API App as a backend component
+## Backend Component - Develop a Sails Web API App
 
 ```
 cd backend
@@ -28,7 +28,7 @@ sails lift
 chrome http://localhost:1337/
 ```
 
-## Develop a Sails Web API App as a backend component
+## Develop a User Web API
 
 ```
 sails new api user
