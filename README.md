@@ -1,1 +1,1 @@
-# Fullstack - Sails/Backend & Angular/Frontend
+# Fullstack - Sails & Angular
