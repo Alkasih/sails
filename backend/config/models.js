@@ -12,6 +12,6 @@ module.exports.models = {
 
   // connection: 'sailsTraveler',
 
-  migrate: 'alter'
+  migrate: 'drop'
 
 };
