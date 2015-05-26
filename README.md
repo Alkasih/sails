@@ -126,3 +126,80 @@ set-cookie: sails.sid=s%3AINclzkTQXeBISarZ4EaZQe939ixU4Qta.24rXxesSMEtDxeRRsCJdx
     }
 }
 ```
+
+## Frontend Workflow Automation
+
+### Gulp JS
+
+```
+npm install gulp --save-dev
+```
+
+### Local Web Server with LiveReload
+
+```
+npm install gulp-webserver --save
+```
+
+### Bower - Package Manager for the Web
+
+```
+npm install bower --save-dev
+
+bower init
+```
+
+### Packaged Angular
+
+```
+bower install angular --save
+```
+
+### Get Bower Packages
+
+```
+npm install main-bower-files --save-dev
+```
+
+### Inject JavaScripts, Stylesheets and Web Components
+
+```
+npm install gulp-inject --save-dev
+```
+
+### Delete Files/Folders
+
+```
+npm install del --save
+```
+
+### Run Gulp JS
+
+```
+gulp
+
+
+Starting 'copyVendor'...
+----- 'copyVendor' -----
+Starting 'copyApp'...
+----- 'copyApp' -----
+Finished 'copyVendor' after 41 ms
+Finished 'copyApp' after 28 ms
+Starting 'scripts'...
+----- 'scripts', ['copyApp'] -----
+gulp-inject 3 files into index.html.
+Finished 'scripts' after 10 ms
+Starting 'vendors'...
+----- 'vendors', ['copyVendor', 'scripts'] -----
+gulp-inject 1 files into index.html.
+Finished 'vendors' after 9.91 ms
+Starting 'serve'...
+----- 'serve', ['vendors'] -----
+Webserver started at http://localhost:8000
+Finished 'serve' after 18 ms
+Starting 'watch'...
+----- 'watch', ['serve'] -----
+Finished 'watch' after 31 ms
+Starting 'default'...
+Finished 'default' after 7.5 μs
+```
