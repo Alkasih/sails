@@ -278,3 +278,95 @@ set-cookie: sails.sid=s%3AMu-BL3rgQmY3b-hbiYu1Yyx1pa_EDQFA.TSfOeIkD%2FTn5gv6oC93
     }
 }
 ```
+
+## Start building with Ionic!
+
+### Install cordova and ionic
+
+```
+npm install -g cordova ionic
+```
+
+### Delete current frontend content
+
+```
+cd frontend
+
+rm -fr *
+```
+
+### Start a project or "app"
+
+- http://ionicframework.com/getting-started/
+
+```
+ionic start app tabs
+```
+
+### Develop in the browser with live reload
+
+```
+cd app
+
+ionic serve --address 127.0.0.1
+```
+
+## Add a platform (iOS or Android)
+
+Note: iOS development requires OS X currently.
+
+See the Android Platform Guide for full Android installation instructions:
+
+ - https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html
+
+### Build your app
+
+```
+ionic build <PLATFORM>
+```
+
+### Simulate your app:
+
+```
+ionic emulate <PLATFORM>
+```
+
+### Run your app on a device
+
+```
+ionic run <PLATFORM>
+```
+
+### Package an app using Ionic package service
+
+```
+ionic package <MODE> <PLATFORM>
+```
+
+### For more help use
+
+```
+ionic --help
+```
+
+### Visit the Ionic docs
+
+ - http://ionicframework.com/docs
+
+### Create an Ionic account
+
+ - ionic.io
+
+### Preview your apps on any device
+
+ - http://view.ionic.io
+
+### Invite anyone to preview and test your app
+
+```
+ionic share EMAIL
+```
+
+### Generate splash screens and icons
+
+ - http://ionicframework.com/blog/automating-icons-and-splash-screens/
