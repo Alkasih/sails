@@ -23,7 +23,7 @@ module.exports = {
 
     }
 
-    Users.findOne({email: email}, function (err, user) {
+    User.findOne({email: email}, function (err, user) {
 
       if (!user) {
 
@@ -36,7 +36,7 @@ module.exports = {
 
       }
 
-      Users.comparePassword(password, user, function (err, valid) {
+      User.comparePassword(password, user, function (err, valid) {
 
         if (err) {
 

@@ -9,8 +9,7 @@ module.exports.routes = {
 
   '/': { view: 'homepage' },
 
-  // 'get /user/create': 'UserController.signup',
-  //
-  // 'post /user/create': 'UserController.create'
+  'post /login': 'UserController.login',
+  'post /signup': 'UserController.signup'
 
 };

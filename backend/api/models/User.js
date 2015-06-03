@@ -14,13 +14,30 @@ module.exports = {
 
   attributes: {
 
+    username: {
+      type: 'string',
+      minLength: 3,
+      maxLength: 25,
+      required: true,
+      unique: true
+    },
+
     email: {
       type: 'email',
-      required: 'true',
+      required: true,
       unique: true
     },
 
     encryptedPassword: {
+      type: 'string'
+    },
+
+    active: {
+      type: 'boolean',
+      defaultsTo: true
+    },
+
+    token: {
       type: 'string'
     },
 
@@ -29,12 +46,18 @@ module.exports = {
       var obj = this.toObject();
       delete obj.encryptedPassword;
       return obj;
+    },
+
+    isPasswordValid: function (password, cb) {
+
+      bcrypt.compare(password, this.encryptedPassword, cb);
+
     }
 
   },
 
   // Encrypt password before creating a User.
-  beforeCreate : function (values, next) {
+  beforeCreate: function (values, next) {
 
     bcrypt.genSalt(10, function (err, salt) {
 
@@ -54,7 +77,7 @@ module.exports = {
 
   },
 
-  comparePassword : function (password, user, cb) {
+  comparePassword: function (password, user, cb) {
 
     bcrypt.compare(password, user.encryptedPassword, function (err, match) {
 
@@ -67,7 +90,7 @@ module.exports = {
       } else {
 
         cb(err);
-        
+
       }
 
     });

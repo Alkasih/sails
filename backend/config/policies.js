@@ -13,7 +13,8 @@ module.exports.policies = {
   '*': ['isAuthorized'],
 
   'UserController': {
-    'create': true // Allowing public access.
+    'login': true,
+    'signup': true
   },
 
   'AuthController': {

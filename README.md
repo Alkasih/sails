@@ -203,3 +203,78 @@ Finished 'watch' after 31 ms
 Starting 'default'...
 Finished 'default' after 7.5 μs
 ```
+
+## Default Blueprints
+
+```
+ls -1 backend/node_modules/sails/lib/hooks/blueprints/actions
+```
+
+## Testing Backend JWT improvements
+
+```
+sails lift
+```
+
+```
+http --form POST localhost:1337/signup \
+username='username' \
+email='username@example.com' \
+password='mysecret333' \
+confirmPassword='mysecret333'
+
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 439
+Content-Type: application/json; charset=utf-8
+Date: Wed, 03 Jun 2015 20:46:25 GMT
+Vary: X-HTTP-Method-Override
+X-Powered-By: Sails <sailsjs.org>
+set-cookie: sails.sid=s%3AuQbz5_GN6RewBwfV13xbaH0dQO-eF93s.prgjT1n2stXNgOajRLL9foTka0sVddtwcylV1bZc47Y; Path=/; HttpOnly
+
+{
+    "message": "All Goes Right. Please login to continue.",
+    "status": "success",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiaWF0IjoxNDMzMzY0Mzg1LCJleHAiOjE0MzMzODU5ODV9.dwHocugW_--b8tCJYoKMvTnvbo4Jr5pLzVsnt7nales",
+    "user": {
+        "active": true,
+        "createdAt": "2015-06-03T20:46:25.078Z",
+        "email": "username@example.com",
+        "id": 1,
+        "updatedAt": "2015-06-03T20:46:25.078Z",
+        "username": "username"
+    }
+}
+```
+
+```
+http --form POST localhost:1337/login \
+email='username@example.com' \
+password='mysecret333' \
+confirmPassword='mysecret333'
+
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 421
+Content-Type: application/json; charset=utf-8
+Date: Wed, 03 Jun 2015 20:46:49 GMT
+Vary: X-HTTP-Method-Override
+X-Powered-By: Sails <sailsjs.org>
+set-cookie: sails.sid=s%3AMu-BL3rgQmY3b-hbiYu1Yyx1pa_EDQFA.TSfOeIkD%2FTn5gv6oC93DCFNO1pSVWLxjegkQ5rgTz0c; Path=/; HttpOnly
+
+{
+    "message": "Now you have logged in!",
+    "status": "success",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiaWF0IjoxNDMzMzY0NDA5LCJleHAiOjE0MzMzODYwMDl9.Pjz-rJFZgp5P_apVbgDQRacYhuZRybcR9c_e2Cd5JH8",
+    "user": {
+        "active": true,
+        "createdAt": "2015-06-03T20:46:25.078Z",
+        "email": "username@example.com",
+        "id": 1,
+        "updatedAt": "2015-06-03T20:46:25.078Z",
+        "username": "username"
+    }
+}
+```
