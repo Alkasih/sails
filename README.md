@@ -355,7 +355,9 @@ ionic --help
 
 ### Create an Ionic account
 
- - ionic.io
+ - http://app.ionic.io
+ 
+ - https://www.youtube.com/watch?v=15daTaDQ6Yg
 
 ### Preview your apps on any device
 
