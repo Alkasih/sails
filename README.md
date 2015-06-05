@@ -356,7 +356,7 @@ ionic --help
 ### Create an Ionic account
 
  - http://app.ionic.io
- 
+
  - https://www.youtube.com/watch?v=15daTaDQ6Yg
 
 ### Preview your apps on any device
@@ -372,3 +372,43 @@ ionic share EMAIL
 ### Generate splash screens and icons
 
  - http://ionicframework.com/blog/automating-icons-and-splash-screens/
+
+## Install AngularJS bindings for Sails
+
+```
+bower install angularSails
+```
+
+ - frontend/app/www/lib/angularSails
+
+ - frontend/app/www/lib/sails.io.js
+
+### Manually edit frontend/app/www/index.html
+
+```
+<!-- ionic/angularjs js -->
+<script src="lib/ionic/js/ionic.bundle.js"></script>
+
+<!-- Websockets/Socket.io Client - Browser SDK for communicating with Sails via sockets  -->
+<script src="lib/sails.io.js/dist/sails.io.js"></script>
+
+<script src="lib/angularSails/dist/ngsails.io.js"></script>
+<script src="js/config.io.js"></script>
+```
+
+### Create js/config.io.js file
+
+```
+io.sails.url = 'http://localhost:1337';
+```
+
+### Add sails.io dependency in app.js file
+
+angular.module('starter', [
+  'ionic',
+
+  'sails.io', // sails.io.js && ngsails.io.js
+
+  'starter.controllers',
+  'starter.services'
+])

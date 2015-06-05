@@ -1,5 +1,20 @@
 angular.module('starter.controllers', [])
 
+.controller('LoginCtrl', ['$scope', '$rootScope', '$state', '$log', function($scope, $rootScope, $state, $log) {
+
+  $scope.user = {};
+  $scope.validationError = '';
+
+  $scope.signup = function() {
+
+
+  $log.debug('success - data', data);
+
+
+  };
+
+}])
+
 .controller('DashCtrl', function($scope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {
@@ -10,7 +25,7 @@ angular.module('starter.controllers', [])
   //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-  
+
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
     Chats.remove(chat);
