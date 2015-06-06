@@ -1,0 +1,4 @@
+**/.git/**
+**/.tmp/**
+
+views/layout.ejs

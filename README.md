@@ -303,7 +303,7 @@ rm -fr *
 ionic start app tabs
 ```
 
-### Develop in the browser with live reload
+### Develop in the browser with reload and watch
 
 ```
 cd app
@@ -435,4 +435,41 @@ bower install angular-jwt
 
 ```
 bower install ngstorage
+```
+
+## Ensuring that app.js runs continuously
+
+ - https://github.com/foreverjs/forever
+
+ - https://github.com/foreverjs/forever-monitor
+
+ - https://github.com/remy/nodemon
+
+### Install forever CLI tool
+
+```
+npm install forever -g
+```
+
+### Run forever and watch for file changes
+
+```
+forever -w app.js
+```
+
+### Add a .foreverignore file
+
+```
+atom backend/.foreverignore
+
+```
+
+### Recommended .foreverignore for Sails
+
+```
+**/.git/**
+**/.tmp/**
+
+views/layout.ejs
+
 ```
