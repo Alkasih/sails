@@ -14,6 +14,12 @@ touch README.md backend/README.md frontend/README.md
 
 ## Backend Component
 
+https://www.youtube.com/watch?t=11&v=1c9f8Duamq0
+
+[link text](http//example.io/my-link "link title")
+
+[![How does the http protocol work](http://img.youtube.com/vi/1c9f8Duamq0/0.jpg)](https://www.youtube.com/watch?v=1c9f8Duamq0 "How does the http protocol work")
+
 ```
 cd backend
 
@@ -36,17 +42,24 @@ sails new api user
 
 ## Implement Json Web Tokens
 
+[![Implement Json Web Tokens](http://img.youtube.com/vi/ls6Cfm50RgY/0.jpg)](https://www.youtube.com/watch?v=ls6Cfm50RgY "Implement Json Web Tokens")
+
 ### Create User API
 
 ```
 sails generate api user
 ```
 
+[![Create a restful json CRUD API](http://img.youtube.com/vi/Hr8axUV6NpM/0.jpg)](https://www.youtube.com/watch?v=Hr8axUV6NpM "Create a restful json CRUD API")
+
 ### Install Dependencies
 
 ```
 npm install bcrypt jsonwebtoken --save
+
 ```
+
+[![Store Users' Password Correctly](http://img.youtube.com/vi/Ba3s1h-spfE/0.jpg)](https://www.youtube.com/watch?v=Ba3s1h-spfE "Store Users' Password Correctly")
 
 ## Create Auth Controller
 
@@ -287,6 +300,8 @@ set-cookie: sails.sid=s%3AMu-BL3rgQmY3b-hbiYu1Yyx1pa_EDQFA.TSfOeIkD%2FTn5gv6oC93
 npm install -g cordova ionic
 ```
 
+[![Ionic and Angular Superpowers for Mobile App Development](http://img.youtube.com/vi/wvr11fvCeu4/0.jpg)](https://www.youtube.com/watch?v=wvr11fvCeu4 "Ionic and Angular Superpowers for Mobile App Development")
+
 ### Delete current frontend content
 
 ```
@@ -382,6 +397,9 @@ ionic share EMAIL
 ```
 bower install angularSails
 ```
+
+[![Understanding websockets and socket.io](http://img.youtube.com/vi/StTqXEQ2l-Y/0.jpg)](https://www.youtube.com/watch?v=dkf3XKrsqAM "Understanding websockets and socket.io")
+
 
  - frontend/app/www/lib/angularSails
 
