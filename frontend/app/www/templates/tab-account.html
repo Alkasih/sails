@@ -1,5 +1,6 @@
 <ion-view view-title="Account">
   <ion-content>
+    <span class="error-message center" ng-if="validationError">{{ validationError }}</span>
     <ion-list>
     <ion-toggle  ng-model="settings.enableFriends">
         Enable Friends

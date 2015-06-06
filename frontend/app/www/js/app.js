@@ -8,7 +8,9 @@
 angular.module('starter', [
   'ionic',
 
-  'sails.io', // sails.io.js && ngsails.io.js
+  'sails.io',     // bower install angularSails
+  'ngStorage',    // bower install ngstorage
+  'angular-jwt',  // bower install angular-jwt
 
   'starter.controllers',
   'starter.services'
@@ -28,7 +30,27 @@ angular.module('starter', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $sailsSocketProvider) {
+.config(function($stateProvider, $urlRouterProvider, $sailsSocketProvider, jwtInterceptorProvider) {
+
+  var authenticate = ['$q', '$state', '$timeout', 'Auth', function($q, $state, $timeout, Auth) {
+
+    if (Auth.authenticate()) {
+      console.log('App - config - Authenticated');
+      return $q.when();
+    } else {
+
+      console.log('App - config - Not Authenticated');
+
+      $timeout(function() {
+        console.log('App - config - Redirect to Login');
+        $state.go('login');
+      });
+
+      return $q.reject();
+
+    }
+
+  }];
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -48,7 +70,63 @@ angular.module('starter', [
   .state('signup', {
     url: '/signup',
     templateUrl: 'templates/signup.html',
-    controller: 'LoginCtrl'
+    controller: 'LoginCtrl',
+    resolve: {
+      userStatus: ['$state', '$q', 'Auth', '$timeout', function($state, $q, Auth, $timeout) {
+        if (!Auth.authenticate()) {
+          console.log('App - config - state - signup - Not Authenticated');
+          return $q.when();
+        } else {
+
+          console.log('App - config - state - signup - Authenticated');
+
+          $timeout(function() {
+            console.log('App - config - state - signup - Redirect to Account');
+            $state.go('tab.account');
+          });
+
+          return $q.reject();
+
+        }
+      }]
+    }
+  })
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl',
+    resolve: {
+
+      userStatus: ['$state', '$q', 'Auth', '$timeout', function($state, $q, Auth, $timeout) {
+
+        if (!Auth.authenticate()) {
+          console.log('App - config - state - login - Not Authenticated');
+          return $q.when();
+        } else {
+
+          console.log('App - config - state - login - Authenticated');
+
+          $timeout(function() {
+            console.log('App - config - state - login - Redirect to Account');
+            $state.go('tab.account');
+          });
+
+          return $q.reject();
+
+        }
+
+      }]
+
+    }
+
+  })
+
+  .state('profile', {
+    cache: false,
+    url: '/profile',
+    templateUrl: 'templates/profile.html',
+    controller: 'ProfileCtrl'
   })
 
   .state('tab.dash', {
@@ -94,27 +172,33 @@ angular.module('starter', [
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
 
-  $sailsSocketProvider.interceptors.push(['$q', '$log', function($q, $log) {
+  jwtInterceptorProvider.tokenGetter = ['$localStorage', function($localStorage) {
+    return $localStorage.token;
+  }];
 
-    return {
+  $sailsSocketProvider.interceptors.push('jwtInterceptor');
 
-      request: function(config) {
+})
 
-        $log.debug('App - $sailsProvider.interceptors - request', config);
+.run(['$rootScope', '$state', 'Auth', function($rootScope, $state, Auth) {
 
-        return config;
-      },
+  $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
 
-      responseError: function(response) {
+    console.log('App - run - $stateChangeStart - getTokenClaims()', Auth.getTokenClaims());
 
-        $log.debug('App - $sailsProvider.interceptors - responseError', response);
+    if (Auth.authenticate()) {
+      $rootScope.isLoggedIn = true;
+    } else {
+      $rootScope.isLoggedIn = false;
+    }
 
-        return $q.reject(response);
+    console.log('App - run - $stateChangeStart - $rootScope.isLoggedIn', $rootScope.isLoggedIn);
 
-      }
+    if (!Auth.authenticate() && !toState.name.match(/^login/) && !toState.name.match(/^signup/)) {
+      console.log('App - run - $stateChangeStart - $state.go(login)', toState);
+      //return $state.go('login');
+    }
 
-    };
+  });
 
-  }]);
-
-});
+}]);

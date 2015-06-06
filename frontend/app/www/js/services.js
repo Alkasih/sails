@@ -1,5 +1,103 @@
 angular.module('starter.services', [])
 
+.factory('Auth', ['$rootScope', '$state', '$sailsSocket', '$localStorage', 'jwtHelper', function ($rootScope, $state, $sailsSocket, $localStorage, jwtHelper) {
+
+  var setToken = function(data) {
+
+    $localStorage.token = data.token;
+    $localStorage.user = data.user;
+
+    $rootScope.isLoggedIn = true;
+
+    console.log('Factory Auth - setToken - $rootScope', $rootScope);
+
+  };
+
+  var tokenClaims = (function() {
+
+    var user = {};
+
+    if (angular.isDefined($localStorage.token)) {
+
+      user = jwtHelper.decodeToken($localStorage.token);
+
+    }
+
+    console.log('Factory Auth - tokenClaims - user', user);
+
+    return user;
+
+  }());
+
+  return {
+
+    signup: function(credentials, success, err) {
+      return $sailsSocket.post('/signup', credentials);
+    },
+
+    login: function(credentials, success, err) {
+      return $sailsSocket.post('/login', credentials);
+    },
+
+    setToken: setToken,
+
+    logout: function() {
+
+      tokenClaims = null;
+
+      $rootScope.auth.isLoggedIn = false;
+
+      delete $localStorage.token;
+
+      // return $state.go('login');
+      return $state.go('tab.dash');
+
+    },
+
+    getTokenClaims: function() {
+
+      console.log('Factory Auth - getTokenClaims - tokenClaims', tokenClaims);
+
+      return tokenClaims;
+    },
+
+    authenticate: function() {
+
+      if ($localStorage.user && $localStorage.token) {
+        console.log('Factory Auth - authenticate - Logged in', tokenClaims);
+        return true;
+      } else {
+        console.log('Factory Auth - authenticate - Please Log in', tokenClaims);
+        return false;
+      }
+
+    }
+
+  }; // return
+
+}])
+
+.run(['Auth', '$rootScope', function(Auth, $rootScope) {
+
+  $rootScope.auth = Auth;
+
+  console.log('Run - $rootScope.auth', $rootScope.auth);
+
+}])
+
+.factory('Data',['$sailsSocket', function($sailsSocket) {
+
+  return {
+
+    getRestrictedData: function(url, success, err)  {
+      console.log('getRestrictedData URL', url);
+      return $sailsSocket.get(url);
+    }
+
+  };
+
+}])
+
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 

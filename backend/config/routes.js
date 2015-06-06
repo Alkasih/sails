@@ -10,6 +10,8 @@ module.exports.routes = {
   '/': { view: 'homepage' },
 
   'post /login': 'UserController.login',
-  'post /signup': 'UserController.signup'
+  'post /signup': 'UserController.signup',
+
+  'get /profile': 'UserController.profile'
 
 };

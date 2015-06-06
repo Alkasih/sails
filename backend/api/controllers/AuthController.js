@@ -9,66 +9,48 @@ module.exports = {
 
   index: function (req, res) {
 
+    var token = null;
+
     var username = req.param('email');
     var password = req.param('password');
 
     if (!email || !password) {
-
-      return res.json(
-        401,
-        {
-          err: 'Email and password required.'
-        }
-      );
-
+      return res.json(401, {
+        err: 'Email and password required.'
+      });
     }
 
     User.findOne({email: email}, function (err, user) {
 
       if (!user) {
-
-        return res.json(
-          401,
-          {
-            err: 'Invalid email or password.'
-          }
-        );
-
+        return res.json(401, {
+          err: 'Invalid email or password.'
+        });
       }
 
       User.comparePassword(password, user, function (err, valid) {
 
         if (err) {
+          return res.json(403, {
+            err: 'Forbidden.'
+          });
+        }
 
-          return res.json(
-            403,
-            {
-              err: 'Forbidden.'
-            }
-          );
+        token = jsonWebToken.sign({ id: user.id });
 
-      }
+        if (valid) {
 
-        if (!valid) {
-
-          return res.json(
-            401,
-            {
-              err: 'Invalid email or password.'
-            }
-          );
+          res.json(200, {
+            user: user,
+            token: token
+          });
 
         } else {
 
-          res.json({
-            user: user,
-            token: jsonWebToken.sign(
-              {
-                id : user.id
-              }
-            )
+          res.json(401, {
+            err: 'Invalid email or password.'
           });
-
+          
         }
 
       });

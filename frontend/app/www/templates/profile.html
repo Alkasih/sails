@@ -1,0 +1,17 @@
+<ion-view view-title="Profile">
+
+  <ion-content class="padding">
+
+    <span class="error-message center" ng-if="validationError">{{ validationError }}</span>
+
+    <p>Data: {{ profile.message }}</p>
+
+    <div class="center">
+      <button class="button button-block button-clear" ui-sref="profile">
+        Profile
+      </button>
+    </div>
+
+  </ion-content>
+
+</ion-view>

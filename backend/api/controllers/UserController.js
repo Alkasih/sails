@@ -15,53 +15,40 @@ module.exports = {
 
     // Validate request paramaters
     if (!req.body.email || !req.body.password) {
-
-      return res.json( 400, { err: {
-        status: 'danger',
-        message: 'Please provide a value for all of the required fields.'
-      }});
-
+      return res.json( 400, {
+        err: 'Please provide a value for all of the required fields.'
+      });
     }
 
     User.findOneByEmail( req.body.email, function(err, user) {
 
       if (err) {
-
-        return res.json( 500, { err: {
-          status: 'error',
-          message: 'Something went wrong with user fetch. Please try again later.'
-        }});
-
+        return res.json( 500, {
+          err: 'Something went wrong with user fetch. Please try again later.'
+        });
       }
 
       if (!user) {
-
-        return res.json( 401, { err: {
-          status: 'warn',
-          message: 'No account found with that user credentials.'
-        }});
-
+        return res.json( 401, {
+          err: 'No account found with that user credentials.'
+        });
       }
 
       // A value of true if user provides the right password account.
-      user.isPasswordValid( req.body.password, function (err, bool) {
+      user.isPasswordValid( req.body.password, function (err, valid) {
 
         if (err) {
-
-          return res.json( 500, { err: {
-            status: 'error',
-            message: 'Something went wrong with password validation. Please try again later.'
-          }});
-
+          return res.json( 500, {
+            err: 'Something went wrong with password validation. Please try again later.'
+          });
         }
 
-        if ( bool ) {
+        if (valid) {
 
           token = jsonWebToken.sign({ id: user.id });
 
           // Our payload is: { id: user.id}.
-          res.json( 200, {
-            status: 'success',
+          return res.json( 200, {
             user: user,
             token: token,
             message: 'Now you have logged in!'
@@ -69,10 +56,9 @@ module.exports = {
 
         } else {
 
-          return res.json( 401, { err: {
-            status: 'error',
-            message: 'Invalid Password. Please try again.'
-          }});
+          return res.json( 401, {
+            err: 'Invalid Password. Please try again.'
+          });
 
         }
 
@@ -91,21 +77,17 @@ module.exports = {
     // Validate request paramaters
     if (!req.body.username || !req.body.email || !req.body.password || !req.body.confirmPassword) {
 
-      return res.json(
-        400, { err: {
-          status: 'error',
-          message: 'Please provide a value for all of the required fields.'
-        }});
+      return res.json(400, {
+        err: 'Please provide a value for all of the required fields.'
+      });
 
     }
 
     if (req.body.password !== req.body.confirmPassword) {
 
-      return res.json(
-        400, { err: {
-          status: 'error',
-          message: 'Password does not match the Confirm Password.'
-        }});
+      return res.json(400, {
+        err: 'Password does not match the Confirm Password.'
+      });
 
     }
 
@@ -113,11 +95,9 @@ module.exports = {
 
       if (err) {
 
-        return res.json(
-          500, { err: {
-            status: 'error',
-            message: 'Something went wrong with user creation. Please try again later.'
-          }});
+        return res.json(500, {
+          err: 'Something went wrong with user creation. Please try again later.'
+        });
 
       }
 
@@ -127,8 +107,7 @@ module.exports = {
         token = jsonWebToken.sign({ id: user.id });
 
         // Our payload is: { id: user.id}.
-        res.json( 200, {
-          status: 'success',
+        return res.json( 200, {
           user: user,
           token: token,
           message: 'All Goes Right. Please login to continue.'
@@ -136,6 +115,14 @@ module.exports = {
 
       }
 
+    });
+
+  },
+
+  profile: function (req, res) {
+
+    return res.json( 200, {
+      message: 'Happy Hacking!'
     });
 
   }

@@ -152,7 +152,7 @@ bower init
 ### Packaged Angular
 
 ```
-bower install angular --save
+bower install angular
 ```
 
 ### Get Bower Packages
@@ -375,6 +375,10 @@ ionic share EMAIL
 
 ## Install AngularJS bindings for Sails
 
+ - https://github.com/balderdashy/angularSails
+
+ - http://balderdashy.github.io/angularSails/#/api/ngsails.$sailsSocket
+
 ```
 bower install angularSails
 ```
@@ -383,7 +387,7 @@ bower install angularSails
 
  - frontend/app/www/lib/sails.io.js
 
-### Manually edit frontend/app/www/index.html
+### Manually edit frontend/app/www/index.html filr
 
 ```
 <!-- ionic/angularjs js -->
@@ -393,10 +397,10 @@ bower install angularSails
 <script src="lib/sails.io.js/dist/sails.io.js"></script>
 
 <script src="lib/angularSails/dist/ngsails.io.js"></script>
-<script src="js/config.io.js"></script>
+<script src="js/config/sails.io.js"></script>
 ```
 
-### Create js/config.io.js file
+### Create js/config/sails.io.js file
 
 ```
 io.sails.url = 'http://localhost:1337';
@@ -404,6 +408,7 @@ io.sails.url = 'http://localhost:1337';
 
 ### Add sails.io dependency in app.js file
 
+```
 angular.module('starter', [
   'ionic',
 
@@ -412,3 +417,22 @@ angular.module('starter', [
   'starter.controllers',
   'starter.services'
 ])
+```
+
+## Add authentication through WebSockets
+
+### Work with JWTs on AngularJS
+
+ - https://github.com/auth0/angular-jwt
+
+```
+bower install angular-jwt
+```
+
+### Make Web Storage working in the Angular Way
+
+ - https://github.com/gsklee/ngStorage
+
+```
+bower install ngstorage
+```
