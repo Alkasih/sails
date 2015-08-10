@@ -37,15 +37,33 @@ module.exports = {
       defaultsTo: true
     },
 
+    status: {
+      type: 'string',
+      defaultsTo: 'offline',
+      required: false
+    },
+
+    ip: {
+      type: 'string',
+      required: false
+    },
+
     token: {
       type: 'string'
     },
 
     // Discard encrypted password from response.
     toJSON: function () {
+
       var obj = this.toObject();
+
       delete obj.encryptedPassword;
+      delete obj.active;
+      delete obj.createdAt;
+      delete obj.updatedAt;
+
       return obj;
+
     },
 
     isPasswordValid: function (password, cb) {

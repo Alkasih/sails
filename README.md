@@ -14,10 +14,6 @@ touch README.md backend/README.md frontend/README.md
 
 ## Backend Component
 
-https://www.youtube.com/watch?t=11&v=1c9f8Duamq0
-
-[link text](http//example.io/my-link "link title")
-
 [![How does the http protocol work](http://img.youtube.com/vi/1c9f8Duamq0/0.jpg)](https://www.youtube.com/watch?v=1c9f8Duamq0 "How does the http protocol work")
 
 ```
@@ -491,3 +487,9 @@ atom backend/.foreverignore
 views/layout.ejs
 
 ```
+
+
+sails generate api place
+
+
+sails generate model place

@@ -13,11 +13,11 @@ angular.module('starter.services', [])
 
   };
 
-  var tokenClaims = (function() {
+  var tokenClaims = function() {
 
     var user = {};
 
-    if (angular.isDefined($localStorage.token)) {
+    if ($localStorage.user && $localStorage.token) {
 
       user = jwtHelper.decodeToken($localStorage.token);
 
@@ -27,7 +27,7 @@ angular.module('starter.services', [])
 
     return user;
 
-  }());
+  };
 
   return {
 
@@ -43,22 +43,19 @@ angular.module('starter.services', [])
 
     logout: function() {
 
-      tokenClaims = null;
-
       $rootScope.auth.isLoggedIn = false;
 
+      delete $localStorage.user;
       delete $localStorage.token;
 
-      // return $state.go('login');
-      return $state.go('tab.dash');
+      return $state.go('login');
 
     },
 
     getTokenClaims: function() {
 
-      console.log('Factory Auth - getTokenClaims - tokenClaims', tokenClaims);
+      return tokenClaims();
 
-      return tokenClaims;
     },
 
     authenticate: function() {

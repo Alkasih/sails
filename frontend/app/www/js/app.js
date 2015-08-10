@@ -68,14 +68,22 @@ angular.module('starter', [
   // Each tab has its own nav history stack:
 
   .state('signup', {
+
+    cache: false,
     url: '/signup',
     templateUrl: 'templates/signup.html',
     controller: 'LoginCtrl',
+
     resolve: {
+
       userStatus: ['$state', '$q', 'Auth', '$timeout', function($state, $q, Auth, $timeout) {
+
         if (!Auth.authenticate()) {
+
           console.log('App - config - state - signup - Not Authenticated');
+
           return $q.when();
+
         } else {
 
           console.log('App - config - state - signup - Authenticated');
@@ -88,21 +96,30 @@ angular.module('starter', [
           return $q.reject();
 
         }
+
       }]
+
     }
+
   })
 
   .state('login', {
+
+    cache: false,
     url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'LoginCtrl',
+
     resolve: {
 
       userStatus: ['$state', '$q', 'Auth', '$timeout', function($state, $q, Auth, $timeout) {
 
         if (!Auth.authenticate()) {
+
           console.log('App - config - state - login - Not Authenticated');
+
           return $q.when();
+
         } else {
 
           console.log('App - config - state - login - Authenticated');
@@ -196,7 +213,7 @@ angular.module('starter', [
 
     if (!Auth.authenticate() && !toState.name.match(/^login/) && !toState.name.match(/^signup/)) {
       console.log('App - run - $stateChangeStart - $state.go(login)', toState);
-      //return $state.go('login');
+      // return $state.go('login');
     }
 
   });

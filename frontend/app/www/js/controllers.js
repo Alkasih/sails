@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', ['$scope', '$rootScope', '$location', '$localStorage', 'Auth', '$state', function($scope, $rootScope, $location, $localStorage, Auth, $state) {
+.controller('LoginCtrl', ['$scope', '$rootScope', '$sailsSocket', '$location', '$localStorage', 'Auth', '$state', function($scope, $rootScope, $sailsSocket, $location, $localStorage, Auth, $state) {
 
   $scope.validationError = null;
 
@@ -8,6 +8,10 @@ angular.module('starter.controllers', [])
   $scope.user = {};
 
   $scope.login = function() {
+
+    $sailsSocket.subscribe('user_logged_in',function(msg){
+      console.log('user_logged_in', msg);
+    });
 
     var formCredentials = {
       email: $scope.user.email,

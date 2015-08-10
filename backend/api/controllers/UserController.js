@@ -47,6 +47,21 @@ module.exports = {
 
           token = jsonWebToken.sign({ id: user.id });
 
+          user.status = 'online';
+          user.ip = req.isSocket ?
+                    req.socket.handshake.address :
+                    req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+          sails.sockets.blast('user_logged_in', {
+            msg: 'User #' + user.id + ' just logged in.',
+            user: {
+              id: user.id,
+              username: user.username
+            }
+          });
+
+          user.save();
+
           // Our payload is: { id: user.id}.
           return res.json( 200, {
             user: user,
@@ -104,9 +119,9 @@ module.exports = {
       // If a user is created then return user and token as response.
       if (user) {
 
+        // Our payload is: { id: user.id}.
         token = jsonWebToken.sign({ id: user.id });
 
-        // Our payload is: { id: user.id}.
         return res.json( 200, {
           user: user,
           token: token,
